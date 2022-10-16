@@ -45,6 +45,8 @@
 7- how to redirect route
 
     redirect(url_for("mine"))  # mine function name
+    - url_for() : return url of mathced function
+    - using params with url_for ===> url_for("get_profile", _id=_id)
 
 ========================================================================================================================
 

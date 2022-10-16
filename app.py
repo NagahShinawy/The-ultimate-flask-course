@@ -1,3 +1,4 @@
+import random
 from http import HTTPStatus
 from datetime import datetime
 import os
@@ -88,6 +89,14 @@ def login():
     return render_template("login.html")  # render html page
 
 
+@app.route("/signup/", methods=["GET", "POST"])
+def signup():
+    _id = random.randint(1, 10)
+    if request.method == "POST":
+        return redirect(url_for("get_profile", _id=_id))
+    return render_template("signup.html")
+
+
 @app.route("/tasks/", methods=["POST"])
 def create_task():
     # try with postman to add json body and capture it
@@ -110,21 +119,4 @@ def is_diff(current, _next):
 
 
 if __name__ == "__main__":
-    # app.run()
-    numbers = [5, 8, 3, 5, 2, 8, 3, 1, 10, 34, 11, 12, 3]
-
-
-    def remove_duplicates(nums: list) -> list:
-        nums = sorted(nums)
-        uniques = []
-        for i in range(len(nums)):
-            if is_ended(nums, i):
-                break
-            current = nums[i]
-            _next = nums[i + 1]
-            if is_diff(current, _next):
-                uniques.append(current)
-        return uniques
-
-
-    print(remove_duplicates(numbers))
+    app.run()
