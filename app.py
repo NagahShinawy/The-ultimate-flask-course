@@ -2,17 +2,10 @@ from http import HTTPStatus
 import os
 from flask import Flask, jsonify
 from fake import Profile
+from constants.products import PRODUCTS, NO_PRODUCTS
 
 
 app = Flask(__name__)
-PRODUCTS = [
-    {"id": 1, "title": "Labtop", "price": 234.89},
-    {"id": 2, "title": "mobile", "price": 968.89},
-    {"id": 3, "title": "coffee machine", "price": 3213.89},
-    {"id": 4, "title": "bed", "price": 32.89},
-]
-
-NO_PRODUCTS = "No Product(s)"
 
 
 @app.route("/")
@@ -63,6 +56,14 @@ def get_profile(_id):
 @app.route("/profiles/", strict_slashes=False, methods=["POST", "PUT"])
 def profiles():
     return jsonify(Profile().to_json()), HTTPStatus.CREATED
+
+
+@app.route("/welcome/<string:name>/", strict_slashes=False)
+@app.route(
+    "/welcome/", strict_slashes=False, defaults={"name": os.getlogin()}
+)  # default params values
+def welcome(name):
+    return "Welcome '{}'".format(name)
 
 
 if __name__ == "__main__":
