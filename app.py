@@ -2,6 +2,8 @@ from http import HTTPStatus
 from datetime import datetime
 import os
 from flask import Flask, jsonify, request, redirect, url_for, render_template
+
+from constants.tasks import NO_TASK
 from fake import Profile
 from constants.products import PRODUCTS, NO_PRODUCTS
 
@@ -89,7 +91,12 @@ def login():
 @app.route("/tasks/", methods=["POST"])
 def create_task():
     # try with postman to add json body and capture it
+    # task = request.get_json() ==> equal ==>  task = request.json
+    if not request.data:  # check if json data provided to the request
+        return NO_TASK
     task = request.json
+    if not task:
+        return NO_TASK
     task.update({"created_at": datetime.now()})
     return jsonify(task), HTTPStatus.CREATED
 
