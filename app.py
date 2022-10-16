@@ -7,7 +7,6 @@ from constants.tasks import NO_TASK
 from fake import Profile
 from constants.products import PRODUCTS, NO_PRODUCTS
 
-
 app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config["JSON_SORT_KEYS"] = False
@@ -81,7 +80,6 @@ def items():
 
 @app.route("/login/", strict_slashes=False, methods=["POST", "GET"])
 def login():
-
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -103,5 +101,30 @@ def create_task():
     return jsonify(task), HTTPStatus.CREATED
 
 
+def is_ended(nums, i):
+    return i == len(nums) - 1
+
+
+def is_diff(current, _next):
+    return current != _next
+
+
 if __name__ == "__main__":
-    app.run()
+    # app.run()
+    numbers = [5, 8, 3, 5, 2, 8, 3, 1, 10, 34, 11, 12, 3]
+
+
+    def remove_duplicates(nums: list) -> list:
+        nums = sorted(nums)
+        uniques = []
+        for i in range(len(nums)):
+            if is_ended(nums, i):
+                break
+            current = nums[i]
+            _next = nums[i + 1]
+            if is_diff(current, _next):
+                uniques.append(current)
+        return uniques
+
+
+    print(remove_duplicates(numbers))
