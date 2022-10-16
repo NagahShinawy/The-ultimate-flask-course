@@ -1,6 +1,6 @@
 from http import HTTPStatus
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from fake import Profile
 from constants.products import PRODUCTS, NO_PRODUCTS
 
@@ -64,6 +64,14 @@ def profiles():
 )  # default params values
 def welcome(name):
     return "Welcome '{}'".format(name)
+
+
+@app.route("/items")
+def items():
+    args = request.args
+    if not args:
+        return NO_PRODUCTS
+    return jsonify(args)
 
 
 if __name__ == "__main__":
