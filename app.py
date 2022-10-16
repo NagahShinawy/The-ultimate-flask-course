@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 
 app = Flask(__name__)
@@ -32,6 +34,13 @@ def get_product(_id):
 @app.route("/health")
 def health_check():
     return "<h3>Health is Ok</h3>"
+
+
+@app.route("/profile")
+@app.route("/me")
+@app.route("/mine")
+def mine():
+    return f"Hello '{os.getlogin().title()}'"
 
 
 if __name__ == "__main__":
