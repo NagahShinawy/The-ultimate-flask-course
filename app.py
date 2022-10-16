@@ -1,6 +1,8 @@
+from http import HTTPStatus
 import os
-
 from flask import Flask, jsonify
+from fake import Profile
+
 
 app = Flask(__name__)
 PRODUCTS = [
@@ -36,15 +38,15 @@ def health_check():
     return "<h3>Health is Ok</h3>"
 
 
-@app.route("/profile")
-@app.route("/me")
-@app.route("/mine")
+@app.route("/profile/", strict_slashes=False)
+@app.route("/me/")
+@app.route("/mine/")
 def mine():
     return f"Hello '{os.getlogin().title()}'"
 
 
-@app.route("/profiles/<int:_id>")
-def profile(_id):
+@app.route("/profiles/<int:_id>/")
+def get_profile(_id):
     return jsonify(
         {
             "id": _id,
@@ -56,6 +58,11 @@ def profile(_id):
             "hobbies": ["Football", "Reading", "coding"],
         }
     )
+
+
+@app.route("/profiles/", strict_slashes=False, methods=["POST"])
+def profiles():
+    return jsonify(Profile().to_json()), HTTPStatus.CREATED
 
 
 if __name__ == "__main__":
