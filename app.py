@@ -16,12 +16,12 @@ def index():
     return "Home"
 
 
-@app.route("/products")
+@app.route("/products", strict_slashes=False)
 def products():
     return PRODUCTS
 
 
-@app.route("/products/<int:_id>")
+@app.route("/products/<int:_id>", strict_slashes=False)
 def get_product(_id):
     for product in PRODUCTS:
         if product.get("id") == _id:
