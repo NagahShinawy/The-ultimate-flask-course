@@ -93,7 +93,7 @@ def login():
 def signup():
     _id = random.randint(1, 10)
     if request.method == "POST":
-        return redirect(url_for("get_profile", _id=_id))
+        return redirect(url_for("get_profile", _id=_id, test="test"))
     return render_template("signup.html")
 
 
