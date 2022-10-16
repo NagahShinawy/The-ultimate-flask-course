@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 PRODUCTS = [
@@ -41,6 +41,21 @@ def health_check():
 @app.route("/mine")
 def mine():
     return f"Hello '{os.getlogin().title()}'"
+
+
+@app.route("/profiles/<int:_id>")
+def profile(_id):
+    return jsonify(
+        {
+            "id": _id,
+            "name": os.getlogin(),
+            "addresses": [
+                {"street": "5", "city": "October", "state": "Hosary"},
+                {"street": "4", "city": "Zayed", "state": "Hyper"},
+            ],
+            "hobbies": ["Football", "Reading", "coding"],
+        }
+    )
 
 
 if __name__ == "__main__":
