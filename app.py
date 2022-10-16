@@ -66,7 +66,7 @@ def welcome(name):
     return "Welcome '{}'".format(name)
 
 
-@app.route("/items")
+@app.route("/items/")
 def items():
     args = request.args
     if not args:
