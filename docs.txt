@@ -1,0 +1,20 @@
+1 - add env vars
+ - export FLASK_APP=app.py ==> allow flask to know whats file to run
+
+========================================================================================================================
+
+2- what is __name__ in Flask
+
+  - __name__ is the name of the current Python module.
+  - The app needs to know where it’s located to set up some paths, and __name__ is a convenient way to tell it that.
+
+========================================================================================================================
+
+3- auto reload flask server upon code changes
+    If you are talking about test/dev environments, then just use the debug option. It will auto-reload the flask app when a code change happens.
+
+    app.run(debug=True)
+    Or, from the shell:
+
+    $ export FLASK_DEBUG=1
+    $ flask run
