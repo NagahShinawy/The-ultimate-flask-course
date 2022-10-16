@@ -59,3 +59,10 @@
   9-  try with postman to add json body and capture it
 
     task = request.json
+
+
+========================================================================================================================
+
+10 - using config
+    - https://flask.palletsprojects.com/en/2.2.x/config/#configuration-basics
+    app.config["DEBUG"] = True
