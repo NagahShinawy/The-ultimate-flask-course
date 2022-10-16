@@ -1,6 +1,6 @@
 from http import HTTPStatus
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect, url_for, render_template
 from fake import Profile
 from constants.products import PRODUCTS, NO_PRODUCTS
 
@@ -72,6 +72,17 @@ def items():
     if not args:
         return NO_PRODUCTS
     return jsonify(args)
+
+
+@app.route("/login/", strict_slashes=False, methods=["POST", "GET"])
+def login():
+
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        if username and password:
+            return redirect(url_for("mine"))  # method of redirect
+    return render_template("login.html")  # render html page
 
 
 if __name__ == "__main__":
