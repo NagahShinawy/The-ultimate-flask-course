@@ -60,7 +60,7 @@ def get_profile(_id):
     )
 
 
-@app.route("/profiles/", strict_slashes=False, methods=["POST"])
+@app.route("/profiles/", strict_slashes=False, methods=["POST", "PUT"])
 def profiles():
     return jsonify(Profile().to_json()), HTTPStatus.CREATED
 
