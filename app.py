@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from datetime import datetime
 import os
 from flask import Flask, jsonify, request, redirect, url_for, render_template
 from fake import Profile
@@ -83,6 +84,14 @@ def login():
         if username and password:
             return redirect(url_for("mine"))  # method of redirect
     return render_template("login.html")  # render html page
+
+
+@app.route("/tasks/", methods=["POST"])
+def create_task():
+    # try with postman to add json body and capture it
+    task = request.json
+    task.update({"created_at": datetime.now()})
+    return jsonify(task), HTTPStatus.CREATED
 
 
 if __name__ == "__main__":

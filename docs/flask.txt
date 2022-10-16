@@ -51,3 +51,8 @@
 8- render html page
 
     render_template("login.html")  # render html page
+
+========================================================================================================================
+  9-  try with postman to add json body and capture it
+
+    task = request.json
