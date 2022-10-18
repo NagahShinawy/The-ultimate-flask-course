@@ -94,6 +94,7 @@ def login():
 
 @app.route("/signup/", methods=["GET", "POST"])
 def signup():
+    session.pop("name", None)
     _id = random.randint(1, 10)
     if request.method == "POST":
         return redirect(url_for("get_profile", _id=_id, test="test"))
