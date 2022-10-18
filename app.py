@@ -67,7 +67,7 @@ def profiles():
 
 @app.route("/welcome/<string:name>/", strict_slashes=False)
 @app.route(
-    "/welcome/", strict_slashes=False, defaults={"name": os.getlogin()}
+    "/welcome/", strict_slashes=False,
 )  # default params values
 def welcome(name):
     session.update({"name": name})
@@ -115,4 +115,4 @@ def create_task():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
