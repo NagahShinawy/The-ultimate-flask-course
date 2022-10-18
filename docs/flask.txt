@@ -66,3 +66,9 @@
 10 - using config
     - https://flask.palletsprojects.com/en/2.2.x/config/#configuration-basics
     app.config["DEBUG"] = True
+
+========================================================================================================================
+
+11- cookie vs session
+
+https://www.geeksforgeeks.org/difference-between-session-and-cookies/#:~:text=Cookies%20are%20client%2Dside%20files,a%20certain%20amount%20of%20info.

@@ -2,7 +2,7 @@ import random
 from http import HTTPStatus
 from datetime import datetime
 import os
-from flask import Flask, jsonify, request, redirect, url_for, render_template
+from flask import Flask, jsonify, request, redirect, url_for, render_template, session
 
 from constants.tasks import NO_TASK
 from fake import Profile
@@ -11,6 +11,8 @@ from constants.products import PRODUCTS, NO_PRODUCTS
 app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config["JSON_SORT_KEYS"] = False
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+# app.config["SESSION_TYPE"] = os.environ.get("SESSION_TYPE")
 
 
 @app.route("/")
@@ -40,7 +42,7 @@ def health_check():
 @app.route("/me/")
 @app.route("/mine/")
 def mine():
-    return f"Hello '{os.getlogin().title()}'"
+    return f"Hello '{session.get('name') or os.getlogin().title()}'"
 
 
 @app.route("/profiles/<int:_id>/")
@@ -68,6 +70,7 @@ def profiles():
     "/welcome/", strict_slashes=False, defaults={"name": os.getlogin()}
 )  # default params values
 def welcome(name):
+    session.update({"name": name})
     return "Welcome '{}'".format(name)
 
 
@@ -108,14 +111,6 @@ def create_task():
         return NO_TASK
     task.update({"created_at": datetime.now()})
     return jsonify(task), HTTPStatus.CREATED
-
-
-def is_ended(nums, i):
-    return i == len(nums) - 1
-
-
-def is_diff(current, _next):
-    return current != _next
 
 
 if __name__ == "__main__":
